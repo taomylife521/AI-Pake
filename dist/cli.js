@@ -31,7 +31,7 @@ var bin = {
 };
 var repository = {
 	type: "git",
-	url: "git+https://github.com/tw93/pake.git"
+	url: "git+https://github.com/tw93/Pake.git"
 };
 var author = {
 	name: "Tw93",
@@ -62,6 +62,7 @@ var scripts = {
 	test: "pnpm run cli:build && cross-env PAKE_CREATE_APP=1 node tests/index.js",
 	format: "prettier --write . --ignore-unknown && find tests -name '*.js' -exec sed -i '' 's/[[:space:]]*$//' {} \\; && cd src-tauri && cargo fmt --verbose",
 	"format:check": "prettier --check . --ignore-unknown",
+	"release:check": "node scripts/check-release-version.mjs && pnpm run format:check && npx vitest run && pnpm run cli:build && npm pack --dry-run --ignore-scripts",
 	update: "pnpm update --verbose && cd src-tauri && cargo update",
 	prepublishOnly: "pnpm run cli:build"
 };

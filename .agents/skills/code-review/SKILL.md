@@ -1,7 +1,7 @@
 ---
 name: code-review
 description: Pake project adapter for Waza check/code-review. Use for TypeScript CLI, Rust/Tauri, release artifact, and CI review.
-version: 1.1.0
+version: 1.2.0
 allowed-tools:
   - Bash
   - Read
@@ -17,7 +17,9 @@ Use Waza `/check` for the generic review method. This adapter adds Pake-specific
 ## Pake-Specific Hard Stops
 
 - [ ] Changes under `bin/` rebuild and commit `dist/cli.js` with `pnpm run cli:build`.
-- [ ] Release version bumps keep `package.json`, `src-tauri/Cargo.toml`, and `src-tauri/tauri.conf.json` in sync.
+- [ ] Changes to package metadata embedded by Rollup (`package.json` name/version/repository/bin/scripts/exports) rebuild and commit `dist/cli.js`.
+- [ ] Release version bumps keep `package.json`, `src-tauri/Cargo.toml`, `src-tauri/Cargo.lock`, and `src-tauri/tauri.conf.json` in sync.
+- [ ] npm release workflow changes preserve Trusted Publishing: `.github/workflows/npm-publish.yml`, `id-token: write`, canonical `git+https://github.com/tw93/Pake.git`, and `scripts/check-release-version.mjs`.
 - [ ] No new `tauriConf: any` or other untyped config objects; use `PakeTauriConfig`.
 - [ ] No user-reachable `panic!` or `.unwrap()` on config, CLI, or event paths.
 - [ ] Silent `catch {}` blocks surface the real error through `logger.warn`.
